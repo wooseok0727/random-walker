@@ -1,0 +1,23 @@
+@mixin font-size($min-fs, $max-fs, $min-vw, $max-vw) {
+  // y = v/100 * x + r
+  $v: calc(1 / ($max-vw - $min-vw) * ($max-fs - $min-fs));
+  $fs: unquote('#{$v * 100vw} + #{$min-fs - ($v * $min-vw)}');
+
+  font-size: $min-fs; // fallback
+  font-size: clamp(#{$min-fs}, #{$fs}, #{$max-fs});
+}
+
+@mixin container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@mixin fade-out($duration, $ease, $delay) {
+  transition: opacity $duration $ease $delay;
+  body.loaded & {
+    opacity: 0;
+  }
+}
