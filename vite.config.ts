@@ -18,6 +18,5 @@ export default defineConfig(({ mode }) => ({
         main: resolve(__dirname, 'index.html'),
       },
     },
-    outDir: '../dist',
   },
 }));
