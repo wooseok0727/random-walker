@@ -1,4 +1,4 @@
-import { FloatType, HalfFloatType, NearestFilter, WebGLRenderTarget, WebGLRenderer, sRGBEncoding } from 'three';
+import { FloatType, NearestFilter, WebGLRenderTarget, WebGLRenderer, sRGBEncoding } from 'three';
 
 import type { Scene, PerspectiveCamera } from 'three';
 import type { Size } from './Sizes';
@@ -23,9 +23,11 @@ export class Renderer {
   }
 
   setRenderTarget(randomWalker: RandomWalker) {
-    const supported = this.instance.extensions.has('OES_texture_float_linear');
+    // https://developer.mozilla.org/en-US/docs/Web/API/OES_texture_float
+    // gl.LINEAR, gl.LINEAR_MIPMAP_NEAREST, gl.NEAREST_MIPMAP_LINEAR, or gl.LINEAR_MIPMAP_LINEAR,
+    // const supported = this.instance.extensions.has('OES_texture_float_linear');
     this.frontBuffer = new WebGLRenderTarget(1, 1, { depthBuffer: false });
-    this.frontBuffer.texture.type = supported ? FloatType : HalfFloatType;
+    this.frontBuffer.texture.type = FloatType;
     this.frontBuffer.texture.magFilter = NearestFilter;
     this.frontBuffer.texture.minFilter = NearestFilter;
 
